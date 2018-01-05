@@ -1,0 +1,22 @@
+spring:
+    datasource:
+       url: jdbc:mysql://127.0.0.1:3306/springbootmybatis?characterEncoding=utf8
+       username: root
+       password: root
+
+server:
+  port: 8080
+#  context-path: /hh #项目前加hh访问
+
+#默认用户名密码
+login:
+  name: admin
+  pass: 123456
+
+#
+#cupSize: B
+#age: 19
+#content: "cupSize:${cupSize},age:${age}"
+girl:
+  cupSize: B
+  age: 19

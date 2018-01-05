@@ -1,0 +1,11 @@
+#格式很重要
+spring:
+  profiles:
+    active: dev
+  datasource:
+     url: jdbc:mysql://127.0.0.1:3306/springboot?characterEncoding=utf8
+
+# Mybatis配置
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+    configLocation: classpath:mybatis.xml
