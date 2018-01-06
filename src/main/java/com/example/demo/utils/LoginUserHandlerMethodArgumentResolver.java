@@ -16,6 +16,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
 
     /*
     * 访问sys/login时 此地为啥不拦截
+    * 没有配置拦截的xml。有没有规定指定名字的xml
     * */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
