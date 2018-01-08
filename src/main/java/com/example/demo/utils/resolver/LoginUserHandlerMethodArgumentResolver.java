@@ -1,6 +1,7 @@
-package com.example.demo.utils;
+package com.example.demo.utils.resolver;
 
 import com.example.demo.entity.UserEntity;
+import com.example.demo.utils.annotation.LoginUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -12,7 +13,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * Created by Alex on 2018/1/6.
  */
 @Component
-public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver{
+public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     /*
     * 访问sys/login时 此地为啥不拦截
@@ -20,7 +21,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     * */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType().isAssignableFrom(UserEntity.class);
+        return parameter.getParameterType().isAssignableFrom(UserEntity.class) && parameter.hasParameterAnnotation(LoginUser.class);
     }
 
     @Override
