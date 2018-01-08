@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
-   // @Autowired(required = false)
-   // private SysUserDao sysUserDao;
+    @Autowired
+    private SysUserDao sysUserDao;
 //    @Autowired
 //    private SysUserRoleService sysUserRoleService;
 //    @Autowired
@@ -30,8 +30,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUserEntity queryByUserName(String username) {
-        return null;
-       // return sysUserDao.queryByUserName(username);
+         return sysUserDao.queryByUserName(username);
     }
 
 //    @Override

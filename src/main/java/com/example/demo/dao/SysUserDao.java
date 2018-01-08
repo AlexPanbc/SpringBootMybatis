@@ -1,6 +1,8 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.SysUserEntity;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
