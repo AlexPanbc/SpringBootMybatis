@@ -25,6 +25,8 @@
         <druid.version>1.1.6</druid.version>
         <shiro.version>1.4.0</shiro.version>
         <kaptcha.version>0.0.9</kaptcha.version>
+        <commons.lang.version>2.6</commons.lang.version>
+
     </properties>
 
     <dependencies>
@@ -71,7 +73,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

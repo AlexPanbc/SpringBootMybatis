@@ -1,11 +1,15 @@
 package com.example.demo.utils.resolver;
 
 import com.example.demo.entity.UserEntity;
+import com.example.demo.service.UserService;
 import com.example.demo.utils.annotation.LoginUser;
+import com.example.demo.utils.interceptor.AuthorizationInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
@@ -15,6 +19,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
+    @Autowired
+    private UserService userService;
     /*
     * 访问sys/login时 此地为啥不拦截
     * 没有配置拦截的xml。有没有规定指定名字的xml
@@ -25,7 +31,16 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return null;
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest request, WebDataBinderFactory binderFactory) throws Exception {
+        //获取用户ID
+        Object object = request.getAttribute(AuthorizationInterceptor.LOGIN_USER_KEY, RequestAttributes.SCOPE_REQUEST);
+        if(object == null){
+            return null;
+        }
+
+        //获取用户信息
+        UserEntity user = userService.queryObject((Long)object);
+
+        return user;
     }
 }

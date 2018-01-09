@@ -6,6 +6,9 @@ import com.example.demo.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by panbingcan on 2018/1/8.
  */
@@ -30,9 +33,23 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUserEntity queryByUserName(String username) {
-         return sysUserDao.queryByUserName(username);
+        return sysUserDao.queryByUserName(username);
     }
 
+    @Override
+    public List<String> queryAllPerms(Long userId) {
+        return sysUserDao.queryAllPerms(userId);
+    }
+
+    @Override
+    public List<SysUserEntity> queryList(Map<String, Object> map) {
+        return sysUserDao.queryList(map);
+    }
+
+    @Override
+    public int queryTotal(Map<String, Object> map) {
+        return sysUserDao.queryTotal(map);
+    }
 //    @Override
 //    public SysUserEntity queryObject(Long userId) {
 //        return sysUserDao.queryObject(userId);

@@ -1,10 +1,9 @@
 package com.example.demo.utils.shiro;
 
 import com.example.demo.entity.SysUserEntity;
-import com.example.demo.service.SysUserService;
+import com.example.demo.service.*;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.authz.*;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +18,23 @@ import java.util.Set;
 public class UserRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService sysUserService;
-//    @Autowired
-//    private SysMenuService sysMenuService;
+    @Autowired
+    private SysMenuService sysMenuService;
 
     /**
      * 授权(验证权限时调用)
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-//        SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
-//        Long userId = user.getUserId();
-//
-//        //用户权限列表
-//        Set<String> permsSet = sysMenuService.getUserPermissions(userId);
-//
-//        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//        info.setStringPermissions(permsSet);
-//        return info;
-        return null;
+        SysUserEntity user = (SysUserEntity)principals.getPrimaryPrincipal();
+        Long userId = user.getUserId();
+
+        //用户权限列表
+        Set<String> permsSet = sysMenuService.getUserPermissions(userId);
+
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(permsSet);
+        return info;
     }
 
     /**
