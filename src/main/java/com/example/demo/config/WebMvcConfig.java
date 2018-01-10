@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.utils.interceptor.AuthorizationInterceptor;
 import com.example.demo.utils.resolver.LoginUserHandlerMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +15,15 @@ import java.util.List;
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    private AuthorizationInterceptor authorizationInterceptor;
     @Autowired
     private LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/api/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/api/**");
     }
 
     @Override

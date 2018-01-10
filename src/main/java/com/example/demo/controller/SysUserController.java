@@ -24,7 +24,7 @@ public class SysUserController extends AbstractController{
     /**
      * 所有用户列表
      */
-    @RequestMapping("/list")
+    @RequestMapping("sys/list")
     @RequiresPermissions("sys:user:list")
     public R list(@RequestParam Map<String, Object> params){
         //只有超级管理员，才能查看所有管理员列表
