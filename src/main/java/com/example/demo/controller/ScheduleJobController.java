@@ -5,6 +5,7 @@ import com.example.demo.service.ScheduleJobService;
 import com.example.demo.utils.PageUtils;
 import com.example.demo.utils.Query;
 import com.example.demo.utils.R;
+import com.example.demo.utils.annotation.SysLog;
 import com.example.demo.utils.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,18 +48,18 @@ public class ScheduleJobController {
         return R.ok().put("schedule", schedule);
     }
 
-//    /**
-//     * 保存定时任务
-//     */
-//    @SysLog("保存定时任务")
-//    @RequestMapping("/save")
-//    @RequiresPermissions("sys:schedule:save")
-//    public R save(@RequestBody ScheduleJobEntity scheduleJob){
-//        ValidatorUtils.validateEntity(scheduleJob);
-//
-//        scheduleJobService.save(scheduleJob);
-//
-//        return R.ok();
-//    }
+    /**
+     * 保存定时任务
+     */
+    @SysLog("保存定时任务")
+    @RequestMapping("/save")
+    @RequiresPermissions("sys:schedule:save")
+    public R save(@RequestBody ScheduleJobEntity scheduleJob){
+        ValidatorUtils.validateEntity(scheduleJob);
+
+        scheduleJobService.save(scheduleJob);
+
+        return R.ok();
+    }
 
 }

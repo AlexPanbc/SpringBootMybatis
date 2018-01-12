@@ -3,9 +3,14 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.ScheduleJobDao;
 import com.example.demo.entity.ScheduleJobEntity;
 import com.example.demo.service.ScheduleJobService;
+import com.example.demo.utils.Constant.ScheduleStatus;
+import com.example.demo.utils.ScheduleUtils;
+import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +19,8 @@ import java.util.Map;
  */
 @Service("scheduleJobService")
 public class ScheduleJobServiceImpl implements ScheduleJobService {
-
+    @Autowired
+    private Scheduler scheduler;
     @Autowired
     private ScheduleJobDao schedulerJobDao;
 
@@ -28,9 +34,19 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 
         return schedulerJobDao.queryList(map);
     }
+
     @Override
     public int queryTotal(Map<String, Object> map) {
         return schedulerJobDao.queryTotal(map);
     }
 
+    @Override
+    @Transactional
+    public void save(ScheduleJobEntity scheduleJob) {
+        scheduleJob.setCreateTime(new Date());
+        scheduleJob.setStatus(ScheduleStatus.NORMAL.getValue());
+        schedulerJobDao.save(scheduleJob);
+
+        ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+    }
 }

@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping
-public class LoginController {
+public class SysLoginController {
 
 
     @Autowired

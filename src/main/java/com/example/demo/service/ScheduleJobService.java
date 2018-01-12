@@ -24,4 +24,10 @@ public interface ScheduleJobService {
      * 查询总数
      */
     int queryTotal(Map<String, Object> map);
+
+    /**
+     * 保存定时任务
+     */
+    void save(ScheduleJobEntity scheduleJob);
+
 }
