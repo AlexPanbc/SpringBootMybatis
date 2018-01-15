@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by panbingcan on 2018/1/11.
+ * Created by Alex on 2018/1/11.
  */
 @Service("scheduleJobService")
 public class ScheduleJobServiceImpl implements ScheduleJobService {
@@ -45,8 +45,10 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
     public void save(ScheduleJobEntity scheduleJob) {
         scheduleJob.setCreateTime(new Date());
         scheduleJob.setStatus(ScheduleStatus.NORMAL.getValue());
-        schedulerJobDao.save(scheduleJob);
+        schedulerJobDao.save(scheduleJob);// TODO: 2018/1/15  存入数据表 
 
-        ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
+        ScheduleUtils.createScheduleJob(scheduler, scheduleJob);// TODO: 2018/1/15 调用quartz 创建job
     }
+
+
 }

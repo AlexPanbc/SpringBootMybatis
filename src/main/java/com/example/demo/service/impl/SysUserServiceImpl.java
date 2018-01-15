@@ -50,6 +50,11 @@ public class SysUserServiceImpl implements SysUserService {
     public int queryTotal(Map<String, Object> map) {
         return sysUserDao.queryTotal(map);
     }
+
+    @Override
+    public SysUserEntity queryObject(Long userId) {
+        return sysUserDao.queryObject(userId);
+    }
 //    @Override
 //    public SysUserEntity queryObject(Long userId) {
 //        return sysUserDao.queryObject(userId);

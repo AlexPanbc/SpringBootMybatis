@@ -1,6 +1,6 @@
 package com.example.demo.utils;
 
-import com.example.demo.utils.Constant;
+import com.example.demo.utils.Constant.ScheduleStatus;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.entity.ScheduleJobEntity;
 import org.quartz.*;
@@ -11,18 +11,21 @@ import org.quartz.*;
 public class ScheduleUtils {
 
     private final static String JOB_NAME = "TASK_";
+
     /**
      * 获取jobKey
      */
     public static JobKey getJobKey(Long jobId) {
         return JobKey.jobKey(JOB_NAME + jobId);
     }
+
     /**
      * 获取触发器key
      */
     public static TriggerKey getTriggerKey(Long jobId) {
         return TriggerKey.triggerKey(JOB_NAME + jobId);
     }
+
     /**
      * 暂停任务
      */
@@ -33,6 +36,7 @@ public class ScheduleUtils {
             throw new RRException("暂停定时任务失败", e);
         }
     }
+
     /**
      * 创建定时任务
      */
@@ -42,8 +46,7 @@ public class ScheduleUtils {
             JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getJobId())).build();
 
             //表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
-                    .withMisfireHandlingInstructionDoNothing();
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression()).withMisfireHandlingInstructionDoNothing();
 
             //按新的cronExpression表达式构建一个新的trigger
             CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getJobId())).withSchedule(scheduleBuilder).build();
@@ -54,7 +57,7 @@ public class ScheduleUtils {
             scheduler.scheduleJob(jobDetail, trigger);
 
             //暂停任务
-            if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
+            if (scheduleJob.getStatus() == ScheduleStatus.PAUSE.getValue()) {
                 pauseJob(scheduler, scheduleJob.getJobId());
             }
         } catch (SchedulerException e) {

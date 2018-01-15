@@ -8,7 +8,7 @@ import javax.validation.Validator;
 import java.util.Set;
 
 /**
- * Created by panbingcan on 2018/1/11.
+ * Created by Alex on 2018/1/11.
  */
 public class ValidatorUtils {
 
@@ -28,7 +28,7 @@ public class ValidatorUtils {
             throws RRException {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
-            ConstraintViolation<Object> constraint = (ConstraintViolation<Object>)constraintViolations.iterator().next();
+            ConstraintViolation<Object> constraint = constraintViolations.iterator().next();
             throw new RRException(constraint.getMessage());
         }
     }

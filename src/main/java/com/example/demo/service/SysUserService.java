@@ -34,5 +34,11 @@ public interface SysUserService {
     int queryTotal(Map<String, Object> map);
 
 
+    /**
+     * 根据用户ID，查询用户
+     * @param userId
+     * @return
+     */
+    SysUserEntity queryObject(Long userId);
 
 }

@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
