@@ -56,8 +56,19 @@ public class ScheduleJobController {
     @RequiresPermissions("sys:schedule:save")
     public R save(@RequestBody ScheduleJobEntity scheduleJob){
         ValidatorUtils.validateEntity(scheduleJob);
-
         scheduleJobService.save(scheduleJob);
+        return R.ok();
+    }
+
+
+    /**
+     * 立即执行任务
+     */
+    @SysLog("立即执行任务")
+    @RequestMapping("/run")
+    @RequiresPermissions("sys:schedule:run")
+    public R run(@RequestBody Long[] jobIds){
+        scheduleJobService.run(jobIds);
 
         return R.ok();
     }

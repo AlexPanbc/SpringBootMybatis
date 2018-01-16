@@ -6,7 +6,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Method;
 
 /**
- * Created by panbingcan on 2018/1/12.
+ * Created by Alex on 2018/1/12.
  */
 public class ScheduleRunnable implements Runnable{
     private Object target;

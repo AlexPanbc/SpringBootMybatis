@@ -30,4 +30,9 @@ public interface ScheduleJobService {
      */
     void save(ScheduleJobEntity scheduleJob);
 
+
+    /**
+     * 立即执行
+     */
+    void run(Long[] jobIds);
 }

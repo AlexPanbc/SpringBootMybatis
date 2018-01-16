@@ -64,4 +64,19 @@ public class ScheduleUtils {
             throw new RRException("创建定时任务失败", e);
         }
     }
+
+    /**
+     * 立即执行任务
+     */
+    public static void run(Scheduler scheduler, ScheduleJobEntity scheduleJob) {
+        try {
+            //参数
+            JobDataMap dataMap = new JobDataMap();
+            dataMap.put(ScheduleJobEntity.JOB_PARAM_KEY, JSON.toJSONString(scheduleJob));
+
+            scheduler.triggerJob(getJobKey(scheduleJob.getJobId()), dataMap);
+        } catch (SchedulerException e) {
+            throw new RRException("立即执行定时任务失败", e);
+        }
+    }
 }

@@ -50,5 +50,13 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);// TODO: 2018/1/15 调用quartz 创建job
     }
 
+    @Override
+    @Transactional
+    public void run(Long[] jobIds) {
+        for(Long jobId : jobIds){
+            ScheduleUtils.run(scheduler, queryObject(jobId));
+        }
+    }
+
 
 }
