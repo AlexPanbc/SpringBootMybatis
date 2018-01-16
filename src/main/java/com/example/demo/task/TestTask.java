@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by panbingcan on 2018/1/15.
+ * Created by Alex on 2018/1/15.
  */
 @Component("testTask")
 public class TestTask {

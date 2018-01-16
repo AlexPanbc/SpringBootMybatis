@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by panbingcan on 2018/1/15.
+ * Created by Alex on 2018/1/15.
  */
-@Component("PPtestTask")
+/*@Component("PPtestTask")
 public class PPtestTask {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -34,4 +34,4 @@ public class PPtestTask {
     public void PPtest2() {
         logger.info("我是不带参数的test2方法，正在被执行");
     }
-}
+}*/
