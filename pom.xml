@@ -28,6 +28,7 @@
         <commons.lang.version>2.6</commons.lang.version>
         <quartz.version>2.3.0</quartz.version>
         <fastjson.version>1.2.44</fastjson.version>
+        <jedis.version>2.9.0</jedis.version>
     </properties>
 
     <dependencies>
@@ -98,6 +99,11 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>${quartz.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
 
     </dependencies>
