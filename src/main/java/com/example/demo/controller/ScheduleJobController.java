@@ -24,7 +24,9 @@ public class ScheduleJobController {
 
     @Autowired
     private ScheduleJobService scheduleJobService;
-
+    /**
+     * 定时任务列表
+     */
     @RequiresPermissions("sys:schedule:list")
     @GetMapping("/list")
     public R jobList(@RequestParam Map<String,Object> params)
@@ -62,6 +64,30 @@ public class ScheduleJobController {
 
 
     /**
+     * 修改定时任务
+     */
+    @SysLog("修改定时任务")
+    @RequestMapping("/update")
+    @RequiresPermissions("sys:schedule:update")
+    public R update(@RequestBody ScheduleJobEntity scheduleJob){
+        ValidatorUtils.validateEntity(scheduleJob);
+        scheduleJobService.update(scheduleJob);
+        return R.ok();
+    }
+
+    /**
+     * 删除定时任务
+     */
+    @SysLog("删除定时任务")
+    @RequestMapping("/delete")
+    @RequiresPermissions("sys:schedule:delete")
+    public R delete(@RequestBody Long[] jobIds){
+        scheduleJobService.deleteBatch(jobIds);
+
+        return R.ok();
+    }
+
+    /**
      * 立即执行任务
      */
     @SysLog("立即执行任务")
@@ -69,8 +95,31 @@ public class ScheduleJobController {
     @RequiresPermissions("sys:schedule:run")
     public R run(@RequestBody Long[] jobIds){
         scheduleJobService.run(jobIds);
+        return R.ok();
+    }
+
+
+    /**
+     * 暂停定时任务
+     */
+    @SysLog("暂停定时任务")
+    @RequestMapping("/pause")
+    @RequiresPermissions("sys:schedule:pause")
+    public R pause(@RequestBody Long[] jobIds){
+        scheduleJobService.pause(jobIds);
 
         return R.ok();
     }
 
+    /**
+     * 恢复定时任务
+     */
+    @SysLog("恢复定时任务")
+    @RequestMapping("/resume")
+    @RequiresPermissions("sys:schedule:resume")
+    public R resume(@RequestBody Long[] jobIds){
+        scheduleJobService.resume(jobIds);
+
+        return R.ok();
+    }
 }

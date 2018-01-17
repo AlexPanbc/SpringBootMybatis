@@ -38,7 +38,7 @@ public class ScheduleConfig {
 
         factory.setSchedulerName("RenrenScheduler");
         //延时启动
-        factory.setStartupDelay(30);
+        factory.setStartupDelay(3);
         factory.setApplicationContextSchedulerContextKey("applicationContextKey");
         //可选，QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了
         factory.setOverwriteExistingJobs(true);

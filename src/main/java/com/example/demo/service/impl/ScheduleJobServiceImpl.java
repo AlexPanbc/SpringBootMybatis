@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,32 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);// TODO: 2018/1/15 调用quartz 创建job
     }
 
+
+    @Override
+    @Transactional
+    public void update(ScheduleJobEntity scheduleJob) {
+        ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
+
+        schedulerJobDao.update(scheduleJob);
+    }
+
+    @Override
+    @Transactional
+    public void deleteBatch(Long[] jobIds) {
+        for(Long jobId : jobIds){
+            ScheduleUtils.deleteScheduleJob(scheduler, jobId);
+        }
+
+        //删除数据
+        schedulerJobDao.deleteBatch(jobIds);
+    }
+    @Override
+    public int updateBatch(Long[] jobIds, int status){
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", jobIds);
+        map.put("status", status);
+        return schedulerJobDao.updateBatch(map);
+    }
     @Override
     @Transactional
     public void run(Long[] jobIds) {
@@ -58,5 +85,25 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
         }
     }
 
+
+    @Override
+    @Transactional
+    public void pause(Long[] jobIds) {
+        for(Long jobId : jobIds){
+            ScheduleUtils.pauseJob(scheduler, jobId);
+        }
+
+        updateBatch(jobIds, ScheduleStatus.PAUSE.getValue());
+    }
+
+    @Override
+    @Transactional
+    public void resume(Long[] jobIds) {
+        for(Long jobId : jobIds){
+            ScheduleUtils.resumeJob(scheduler, jobId);
+        }
+
+        updateBatch(jobIds, ScheduleStatus.NORMAL.getValue());
+    }
 
 }
