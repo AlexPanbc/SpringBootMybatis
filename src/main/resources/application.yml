@@ -6,6 +6,23 @@ spring:
      type: com.alibaba.druid.pool.DruidDataSource
      driver-class-name: com.mysql.jdbc.Driver
 
+redis:
+     #服务器地址
+     hostName: 127.0.0.1
+     password: 123456
+     #端口号
+     port: 6379
+      # 最大实例数
+     maxTotal: 100
+      # 最大空闲实例数
+     maxIdle: 10
+      # (创建实例时)最大等待时间
+     maxWaitMillis: 10000
+      # (创建实例时)是否验证
+     testOnBorrow: true
+
+     timeout: 1000
+
 # Mybatis配置
 mybatis:
     mapperLocations: classpath:mapper/*.xml

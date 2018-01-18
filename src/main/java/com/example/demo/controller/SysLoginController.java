@@ -7,11 +7,12 @@ import com.google.code.kaptcha.Producer;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.io.IOException;
  * Created by Alex on 2018/1/6.
  */
 @RestController
-@RequestMapping
+@RequestMapping("login")
 public class SysLoginController {
 
 
@@ -69,5 +70,21 @@ public class SysLoginController {
             return R.error("账户验证失败");
         }
         return R.ok("哈哈哈" + username + password);
+    }
+
+    @Autowired
+    private JedisPool jedisPool;
+    private final static Logger logger = LoggerFactory.getLogger(SysLoginController.class);
+
+    @GetMapping("/getj")
+    public R jedisGet() {
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.set("jedis", "中爱神的箭阿拉山口");
+            String v = jedis.get("jedis");
+            logger.info("value=" + v);
+            jedis.set("hahaha", "41a2s1d2f1s2df");
+            logger.info("value=" +  jedis.get("hahaha"));
+            return R.ok(v + "------------" + jedis.get("hahaha"));
+        }
     }
 }

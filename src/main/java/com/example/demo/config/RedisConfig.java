@@ -14,7 +14,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 @Configuration
 @EnableAutoConfiguration
-@ConfigurationProperties(prefix = "spring.redis")
+@ConfigurationProperties(prefix = "redis")
 public class RedisConfig {
     private final static Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
@@ -26,16 +26,20 @@ public class RedisConfig {
 
     private int timeout;
 
-    @Bean
-    public JedisPoolConfig getRedisConfig(){
-        JedisPoolConfig config = new JedisPoolConfig();
-        return config;
-    }
+    public int maxTotal;
+    public int maxIdle;
+    public int maxWaitMillis;
+    public boolean testOnBorrow;
+
 
     @Bean
     public JedisPool getJedisPool(){
-        JedisPoolConfig config = getRedisConfig();
-        JedisPool pool = new JedisPool(config,hostName,port,timeout,password);
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxIdle(maxIdle);
+        config.setMaxTotal(maxTotal);
+        config.setMaxWaitMillis(maxWaitMillis);
+        config.setTestOnBorrow(testOnBorrow);
+        JedisPool pool = new JedisPool(config,hostName,port);
         logger.info("init JredisPool ...");
         return pool;
     }
@@ -70,5 +74,37 @@ public class RedisConfig {
 
     public void setTimeout(int timeout) {
         this.timeout = timeout;
+    }
+
+    public int getMaxTotal() {
+        return maxTotal;
+    }
+
+    public void setMaxTotal(int maxTotal) {
+        this.maxTotal = maxTotal;
+    }
+
+    public int getMaxIdle() {
+        return maxIdle;
+    }
+
+    public void setMaxIdle(int maxIdle) {
+        this.maxIdle = maxIdle;
+    }
+
+    public int getMaxWaitMillis() {
+        return maxWaitMillis;
+    }
+
+    public void setMaxWaitMillis(int maxWaitMillis) {
+        this.maxWaitMillis = maxWaitMillis;
+    }
+
+    public boolean isTestOnBorrow() {
+        return testOnBorrow;
+    }
+
+    public void setTestOnBorrow(boolean testOnBorrow) {
+        this.testOnBorrow = testOnBorrow;
     }
 }
