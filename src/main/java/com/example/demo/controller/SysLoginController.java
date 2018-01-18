@@ -75,7 +75,6 @@ public class SysLoginController {
     @Autowired
     private JedisPool jedisPool;
     private final static Logger logger = LoggerFactory.getLogger(SysLoginController.class);
-
     @GetMapping("/getj")
     public R jedisGet() {
         try (Jedis jedis = jedisPool.getResource()) {
