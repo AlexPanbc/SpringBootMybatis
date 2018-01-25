@@ -23,6 +23,9 @@ redis:
 
      timeout: 1000
 
+
+spring.elasticsearch.host: 127.0.0.1
+spring.elasticsearch.port: 9300
 # Mybatis配置
 mybatis:
     mapperLocations: classpath:mapper/*.xml

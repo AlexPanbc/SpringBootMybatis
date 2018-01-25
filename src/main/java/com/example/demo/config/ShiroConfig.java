@@ -51,6 +51,7 @@ public class ShiroConfig {
 
         filterMap.put("/login.html", "anon");
         filterMap.put("/login/*", "anon");
+        filterMap.put("/esbook/*", "anon");
 //        filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/**", "authc");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
