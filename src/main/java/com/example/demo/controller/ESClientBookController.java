@@ -108,7 +108,7 @@ public class ESClientBookController {
         return R.ok();
     }
     // TODO: 2018/1/26  delete 127.0.0.1:8080/esbook/delete?id=8
-    /**
+    /**RequestMapping =Get传参方式
      * 删除
      */
     @DeleteMapping("/delete")
