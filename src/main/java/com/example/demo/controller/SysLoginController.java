@@ -25,7 +25,7 @@ import java.io.IOException;
  * Created by Alex on 2018/1/6.
  */
 @RestController
-@RequestMapping("login")
+@RequestMapping
 public class SysLoginController {
 
 
@@ -49,7 +49,7 @@ public class SysLoginController {
         out.flush();
     }
 
-    @PostMapping("/sys/login")
+    @PostMapping("/login")
     public R login(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("captcha") String captcha) throws IOException {
         String kapthcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kapthcha))

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ClientBookDao">
+
+	<select id="queryObject" resultType="com.example.demo.entity.ClientBookEntity">
+		select * from client_book where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.example.demo.entity.ClientBookEntity">
+		select * from client_book
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from client_book 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.ClientBookEntity"  useGeneratedKeys="true" keyProperty="id">
+		insert into client_book
+		(
+			`name`, 
+			`author`, 
+			`typeworks`, 
+			`typework`, 
+			`workscount`, 
+			`store`, 
+			`state`, 
+			`createdate`, 
+			`updatedate`
+		)
+		values
+		(
+			#{name}, 
+			#{author}, 
+			#{typeworks}, 
+			#{typework}, 
+			#{workscount}, 
+			#{store}, 
+			#{state}, 
+			#{createdate}, 
+			#{updatedate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.example.demo.entity.ClientBookEntity">
+		update client_book 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="typeworks != null">`typeworks` = #{typeworks}, </if>
+			<if test="typework != null">`typework` = #{typework}, </if>
+			<if test="workscount != null">`workscount` = #{workscount}, </if>
+			<if test="store != null">`store` = #{store}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="createdate != null">`createdate` = #{createdate}, </if>
+			<if test="updatedate != null">`updatedate` = #{updatedate}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from client_book where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from client_book where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
